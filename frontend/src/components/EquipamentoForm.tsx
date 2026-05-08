@@ -26,8 +26,46 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
   const [pressao, setPressao] = useState("");
   const [tensao, setTensao] = useState("");
   const [acessorios, setAcessorios] = useState("");
+  const [erro, setErro] = useState("");
+
+  function gerarDescricaoExaustor() {
+    const partes = [
+      "EXAUSTOR",
+      tipoVentilador && `TIPO ${tipoVentilador}`,
+      tipoRotor && `ROTOR ${tipoRotor}`,
+      quantidadeAspiracao && quantidadeAspiracao,
+      vazao && `VAZÃO ${vazao} M³/H`,
+      pressao && `PRESSÃO ${pressao} MMCA`,
+      tensao && `TENSÃO ${tensao}`,
+      acessorios && `COM ACESSÓRIOS: ${acessorios}`,
+    ].filter(Boolean);
+
+    setDescricao(partes.join(" - ").toUpperCase());
+  }
 
   function salvarEquipamento() {
+    if (!descricao.trim()) {
+      setErro("Informe ou gere a descrição do equipamento.");
+      return;
+    }
+
+    if (!fabricante.trim()) {
+      setErro("Informe o fabricante do equipamento.");
+      return;
+    }
+
+    if (quantidade <= 0) {
+      setErro("A quantidade deve ser maior que zero.");
+      return;
+    }
+
+    if (valorMaterialUnitario < 0 || valorMaoObraUnitario < 0) {
+      setErro("Os valores não podem ser negativos.");
+      return;
+    }
+
+    setErro("");
+
     onSalvar(tipoId, {
       tag,
       descricao,
@@ -40,6 +78,8 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
       valorMaterialUnitario,
       valorMaoObraUnitario,
     });
+
+
 
     onFechar();
   }
@@ -216,6 +256,15 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
                   className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500"
                 />
               </label>
+              <div className="mt-4 flex justify-end">
+                <button
+                  type="button"
+                  onClick={gerarDescricaoExaustor}
+                  className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                >
+                  Gerar descrição
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -269,6 +318,12 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
           </label>
         </div>
 
+        {erro && (
+          <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700">
+            {erro}
+          </div>
+        )}
+
         <div className="mt-6 flex justify-end gap-3 border-t border-slate-200 pt-4">
           <button
             onClick={onFechar}
@@ -276,7 +331,6 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
           >
             Cancelar
           </button>
-
           <button
             onClick={salvarEquipamento}
             className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
