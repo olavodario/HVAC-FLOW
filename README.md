@@ -1,4 +1,4 @@
-# Venturi
+# HVAC FLOW
 
 Sistema de composição e gerenciamento de orçamentos HVAC desenvolvido para engenharia térmica, climatização, ventilação e composição de custos técnicos.
 
@@ -6,7 +6,7 @@ Sistema de composição e gerenciamento de orçamentos HVAC desenvolvido para en
 
 ## Objetivo
 
-O Venturi tem como objetivo modernizar e estruturar o processo de elaboração de orçamentos HVAC, substituindo fluxos baseados exclusivamente em planilhas por uma plataforma organizada, escalável e orientada à engenharia.
+O HVAC FLOW tem como objetivo modernizar e estruturar o processo de elaboração de orçamentos HVAC, substituindo fluxos baseados exclusivamente em planilhas por uma plataforma organizada, escalável e orientada à engenharia.
 
 O sistema foi pensado para atender processos de:
 
