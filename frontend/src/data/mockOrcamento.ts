@@ -52,7 +52,7 @@ export const mockOrcamentos: Orcamento[] = [
               {
                 id: "item-2",
                 tag: "DI-01",
-                descricao: 'DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"',
+                descricao: 'DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"',
                 fabricante: "TROX ou similar",
                 quantidade: 15,
                 unidade: "pc",

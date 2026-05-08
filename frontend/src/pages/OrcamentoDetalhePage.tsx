@@ -1,14 +1,17 @@
-import type { Orcamento } from "../types/orcamento";
+import type { FormacaoPreco, Orcamento } from "../types/orcamento";
 import { ResumoCustos } from "../components/ResumoCustos";
+import { ItensPorCategoria } from "../components/ItensPorCategoria";
 
 interface OrcamentoDetalhePageProps {
   orcamento: Orcamento;
   onVoltar: () => void;
+  onAtualizarFormacaoPreco: (formacaoPreco: FormacaoPreco) => void;
 }
 
 export function OrcamentoDetalhePage({
   orcamento,
   onVoltar,
+  onAtualizarFormacaoPreco,
 }: OrcamentoDetalhePageProps) {
   return (
     <>
@@ -36,7 +39,12 @@ export function OrcamentoDetalhePage({
         </button>
       </div>
 
-      <ResumoCustos orcamento={orcamento} />
+      <ResumoCustos
+        orcamento={orcamento}
+        onAtualizarFormacaoPreco={onAtualizarFormacaoPreco}
+      />
+
+      <ItensPorCategoria orcamento={orcamento} />
     </>
   );
 }
