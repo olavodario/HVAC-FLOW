@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { NovoItemOrcamento, TipoFaturamento, Unidade } from "../types/orcamento";
+import { catalogoTecnico } from "../data/catalogoTecnico";
 
 interface EquipamentoFormProps {
   tagsExistentes: string[];
@@ -313,8 +314,16 @@ export function EquipamentoForm({ tagsExistentes, onFechar, onSalvar }: Equipame
               onChange={(event) => setTipoId(event.target.value)}
               className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500"
             >
-              <option value="tipo-exaustor">Exaustores</option>
-              <option value="tipo-ventilador">Ventiladores</option>
+              {catalogoTecnico.VENTILACAO.EQUIPAMENTOS.map(
+                (tipo) => (
+                  <option
+                    key={tipo.id}
+                    value={tipo.id}
+                  >
+                    {tipo.nome}
+                  </option>
+                )
+              )}
             </select>
           </label>
 
