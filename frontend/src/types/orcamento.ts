@@ -59,6 +59,7 @@ export interface TipoItemOrcamento {
   id: string;
   nome: string;
   itens: ItemOrcamento[];
+  itensIndiretos?: ItemIndireto[];
 }
 
 export interface ItemOrcamento {
@@ -77,6 +78,15 @@ export interface ItemOrcamento {
 
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
+}
+
+export interface ItemIndireto {
+  id: string;
+
+  descricao: string;
+  quantidade: number;
+  unidade: "vb";
+
   valorIndiretoUnitario: number;
 }
 
@@ -86,10 +96,12 @@ export interface NovoItemOrcamento {
   fabricante: string;
   modelo: string;
   usarSimilarEquivalente: boolean;
+
   quantidade: number;
   unidade: Unidade;
+
   tipoFaturamento: TipoFaturamento;
+
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
-  valorIndiretoUnitario: number;
 }

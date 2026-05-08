@@ -39,7 +39,6 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
       tipoFaturamento,
       valorMaterialUnitario,
       valorMaoObraUnitario,
-      valorIndiretoUnitario: 0,
     });
 
     onFechar();

@@ -1,5 +1,6 @@
 import type {
   FormacaoPreco,
+  ItemIndireto,
   ItemOrcamento,
   Orcamento,
 } from "../types/orcamento";
@@ -23,15 +24,8 @@ export function calcularTotalMaoObra(
   formacaoPreco: FormacaoPreco
 ): number {
   const custoBase = item.quantidade * item.valorMaoObraUnitario;
-  return custoBase * (1 + formacaoPreco.bdiMaoObra / 100);
-}
 
-export function calcularTotalIndiretos(
-  item: ItemOrcamento,
-  formacaoPreco: FormacaoPreco
-): number {
-  const custoBase = item.quantidade * item.valorIndiretoUnitario;
-  return custoBase * (1 + formacaoPreco.bdiIndiretos / 100);
+  return custoBase * (1 + formacaoPreco.bdiMaoObra / 100);
 }
 
 export function calcularTotalItem(
@@ -40,9 +34,17 @@ export function calcularTotalItem(
 ): number {
   return (
     calcularTotalMaterial(item, formacaoPreco) +
-    calcularTotalMaoObra(item, formacaoPreco) +
-    calcularTotalIndiretos(item, formacaoPreco)
+    calcularTotalMaoObra(item, formacaoPreco)
   );
+}
+
+export function calcularTotalIndireto(
+  item: ItemIndireto,
+  formacaoPreco: FormacaoPreco
+): number {
+  const custoBase = item.quantidade * item.valorIndiretoUnitario;
+
+  return custoBase * (1 + formacaoPreco.bdiIndiretos / 100);
 }
 
 export function calcularResumoOrcamento(orcamento: Orcamento) {
@@ -56,7 +58,10 @@ export function calcularResumoOrcamento(orcamento: Orcamento) {
         tipo.itens.forEach((item) => {
           totalMaterial += calcularTotalMaterial(item, orcamento.formacaoPreco);
           totalMaoObra += calcularTotalMaoObra(item, orcamento.formacaoPreco);
-          totalIndiretos += calcularTotalIndiretos(
+        });
+
+        tipo.itensIndiretos?.forEach((item) => {
+          totalIndiretos += calcularTotalIndireto(
             item,
             orcamento.formacaoPreco
           );
