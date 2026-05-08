@@ -1,5 +1,6 @@
 import type { Orcamento } from "../types/orcamento";
 
+
 interface OrcamentoTableProps {
   orcamentos: Orcamento[];
   onSelecionarOrcamento: (orcamento: Orcamento) => void;

@@ -1,0 +1,104 @@
+import type { Orcamento } from "../types/orcamento";
+import { formatarMoeda } from "../utils/calculosOrcamento";
+
+interface VentilacaoEquipamentosPageProps {
+  orcamento: Orcamento;
+}
+
+export function VentilacaoEquipamentosPage({
+  orcamento,
+}: VentilacaoEquipamentosPageProps) {
+  const ventilacao = orcamento.macrogrupos.find(
+    (macrogrupo) => macrogrupo.tipo === "VENTILACAO"
+  );
+
+  const equipamentos = ventilacao?.secoes.find(
+    (secao) => secao.tipo === "EQUIPAMENTOS"
+  );
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="text-xl font-bold text-slate-900">
+            Ventilação / Equipamentos
+          </h3>
+
+          <p className="mt-1 text-sm text-slate-500">
+            Cadastre exaustores, ventiladores e demais equipamentos de ventilação.
+          </p>
+        </div>
+
+        <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
+          Adicionar equipamento
+        </button>
+      </div>
+
+      <div className="mt-6 space-y-5">
+        {equipamentos?.tipos.map((tipo) => (
+          <div key={tipo.id} className="rounded-lg border border-slate-200">
+            <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
+              <h4 className="text-sm font-bold text-slate-700">
+                {tipo.nome}
+              </h4>
+            </div>
+
+            <table className="w-full border-collapse text-left text-sm">
+              <thead className="bg-white text-slate-500">
+                <tr>
+                  <th className="px-4 py-3 font-medium">Tag</th>
+                  <th className="px-4 py-3 font-medium">Descrição</th>
+                  <th className="px-4 py-3 font-medium">Fabricante</th>
+                  <th className="px-4 py-3 font-medium">Qtd</th>
+                  <th className="px-4 py-3 font-medium">Un.</th>
+                  <th className="px-4 py-3 font-medium">Preço Equip.</th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-slate-100">
+                {tipo.itens.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 font-medium text-slate-900">
+                      {item.tag}
+                    </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {item.descricao}
+                    </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {item.fabricante}
+                    </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {item.quantidade}
+                    </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {item.unidade}
+                    </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {formatarMoeda(item.valorMaterialUnitario)}
+                    </td>
+                  </tr>
+                ))}
+
+                {tipo.itens.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="px-4 py-5 text-center text-sm text-slate-400"
+                    >
+                      Nenhum equipamento cadastrado neste tipo.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

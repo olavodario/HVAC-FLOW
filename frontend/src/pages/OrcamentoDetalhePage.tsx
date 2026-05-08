@@ -1,15 +1,19 @@
 import type { FormacaoPreco, Orcamento } from "../types/orcamento";
+import type { SecaoOrcamentoPagina } from "../types/navegacao";
 import { ResumoCustos } from "../components/ResumoCustos";
 import { ItensPorCategoria } from "../components/ItensPorCategoria";
+import { VentilacaoEquipamentosPage } from "./VentilacaoEquipamentosPage";
 
 interface OrcamentoDetalhePageProps {
   orcamento: Orcamento;
+  secaoAtiva: SecaoOrcamentoPagina;
   onVoltar: () => void;
   onAtualizarFormacaoPreco: (formacaoPreco: FormacaoPreco) => void;
 }
 
 export function OrcamentoDetalhePage({
   orcamento,
+  secaoAtiva,
   onVoltar,
   onAtualizarFormacaoPreco,
 }: OrcamentoDetalhePageProps) {
@@ -39,12 +43,66 @@ export function OrcamentoDetalhePage({
         </button>
       </div>
 
-      <ResumoCustos
-        orcamento={orcamento}
-        onAtualizarFormacaoPreco={onAtualizarFormacaoPreco}
-      />
+      {secaoAtiva === "resumo" && (
+        <>
+          <ResumoCustos
+            orcamento={orcamento}
+            onAtualizarFormacaoPreco={onAtualizarFormacaoPreco}
+          />
 
-      <ItensPorCategoria orcamento={orcamento} />
+          <ItensPorCategoria orcamento={orcamento} />
+        </>
+      )}
+
+      {secaoAtiva === "ventilacao-equipamentos" && (
+        <VentilacaoEquipamentosPage orcamento={orcamento} />
+      )}
+      {secaoAtiva === "ventilacao-materiais" && (
+        <PaginaSecao
+          titulo="Ventilação / Materiais"
+          descricao="Cadastro e visualização dos materiais de ventilação do orçamento."
+        />
+      )}
+
+      {secaoAtiva === "climatizacao-equipamentos" && (
+        <PaginaSecao
+          titulo="Climatização / Equipamentos"
+          descricao="Cadastro e visualização dos equipamentos de climatização do orçamento."
+        />
+      )}
+
+      {secaoAtiva === "climatizacao-materiais" && (
+        <PaginaSecao
+          titulo="Climatização / Materiais"
+          descricao="Cadastro e visualização dos materiais de climatização do orçamento."
+        />
+      )}
+
+      {secaoAtiva === "indiretos" && (
+        <PaginaSecao
+          titulo="Indiretos"
+          descricao="Cadastro e visualização dos custos indiretos do orçamento."
+        />
+      )}
     </>
+  );
+}
+
+interface PaginaSecaoProps {
+  titulo: string;
+  descricao: string;
+}
+
+function PaginaSecao({ titulo, descricao }: PaginaSecaoProps) {
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <h3 className="text-xl font-bold text-slate-900">{titulo}</h3>
+
+      <p className="mt-1 text-sm text-slate-500">{descricao}</p>
+
+      <div className="mt-6 rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">
+        Módulo em construção.
+      </div>
+    </section>
   );
 }
