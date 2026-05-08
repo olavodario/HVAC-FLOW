@@ -2,11 +2,17 @@ import { useState } from "react";
 import type { NovoItemOrcamento, TipoFaturamento, Unidade } from "../types/orcamento";
 
 interface EquipamentoFormProps {
+  tagsExistentes: string[];
+
   onFechar: () => void;
-  onSalvar: (tipoId: string, item: NovoItemOrcamento) => void;
+
+  onSalvar: (
+    tipoId: string,
+    item: NovoItemOrcamento
+  ) => void;
 }
 
-export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
+export function EquipamentoForm({ tagsExistentes, onFechar, onSalvar }: EquipamentoFormProps) {
   const [tipoId, setTipoId] = useState("tipo-exaustor");
   const [tag, setTag] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -44,6 +50,18 @@ export function EquipamentoForm({ onFechar, onSalvar }: EquipamentoFormProps) {
   }
 
   function salvarEquipamento() {
+    if (!tag.trim()) {
+      setErro("Informe a TAG do equipamento.");
+      return;
+    }
+    const tagJaExiste = tagsExistentes.includes(
+      tag.trim().toUpperCase()
+    );
+
+    if (tagJaExiste) {
+      setErro("Já existe um item com esta TAG no orçamento.");
+      return;
+    }
     if (!descricao.trim()) {
       setErro("Informe ou gere a descrição do equipamento.");
       return;

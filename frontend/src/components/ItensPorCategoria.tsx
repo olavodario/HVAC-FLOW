@@ -110,7 +110,7 @@ function TabelaItensTecnicos({ itens, orcamento }: TabelaItensTecnicosProps) {
             <th className="w-[140px] px-3 py-2 font-medium">Faturamento</th>
             <th className="w-[140px] px-3 py-2 font-medium">Material</th>
             <th className="w-[140px] px-3 py-2 font-medium">M.O.</th>
-            <th className="w-[140px] px-3 py-2 font-medium" style={{ textAlign: "right" }}>Total</th>
+            <th className="w-[140px] px-3 py-2 font-medium text-right">Total</th>
           </tr>
         </thead>
 
@@ -190,7 +190,7 @@ function TabelaIndiretos({ itens, orcamento }: TabelaIndiretosProps) {
             <th className="w-[90px] px-3 py-2 font-medium">Qtd</th>
             <th className="w-[90px] px-3 py-2 font-medium">Un.</th>
             <th className="w-[160px] px-3 py-2 font-medium">Indiretos</th>
-            <th className="w-[160px] align-right px-3 py-2 font-medium" style={{ textAlign: "right" }}>Total</th>
+            <th className="w-[160px] align-right px-3 py-2 font-medium text-right">Total</th>
           </tr>
         </thead>
 

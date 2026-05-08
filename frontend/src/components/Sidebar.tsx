@@ -27,7 +27,7 @@ export function Sidebar({
   onSelecionarSecaoOrcamento,
 }: SidebarProps) {
   return (
-    <aside className="w-64 min-h-screen border-r border-slate-200 bg-white px-4 py-5">
+    <aside className="w-full border-b border-slate-200 bg-white px-4 py-4 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r lg:py-5">
       <div className="mb-8">
         <h1 className="text-xl font-bold text-slate-900">
           HVAC-FLOW

@@ -25,6 +25,15 @@ export function VentilacaoEquipamentosPage({
     (secao) => secao.tipo === "EQUIPAMENTOS"
   );
 
+  const tagsExistentes =
+  orcamento.macrogrupos.flatMap((macrogrupo) =>
+    macrogrupo.secoes.flatMap((secao) =>
+      secao.tipos.flatMap((tipo) =>
+        tipo.itens.map((item) => item.tag.toUpperCase())
+      )
+    )
+  );
+
   return (
     <section className="mt-6 rounded-xl border border-slate-200 bg-white p-6">
       <div className="flex items-start justify-between">
@@ -49,6 +58,7 @@ export function VentilacaoEquipamentosPage({
 
       {formAberto && (
         <EquipamentoForm
+          tagsExistentes={tagsExistentes}
           onFechar={() => setFormAberto(false)}
           onSalvar={onAdicionarEquipamento}
         />
@@ -56,14 +66,14 @@ export function VentilacaoEquipamentosPage({
 
       <div className="mt-6 space-y-5">
         {equipamentos?.tipos.map((tipo) => (
-          <div key={tipo.id} className="rounded-lg border border-slate-200">
+          <div key={tipo.id} className="overflow-x-auto rounded-lg border border-slate-200">
             <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
               <h4 className="text-sm font-bold text-slate-700">
                 {tipo.nome}
               </h4>
             </div>
 
-            <table className="w-full border-collapse text-left text-sm">
+            <table className="min-w-[1100px] w-full table-fixed border-collapse text-left text-sm">
               <thead className="bg-white text-slate-500">
                 <tr>
                   <th className="px-4 py-3 font-medium">Tag</th>

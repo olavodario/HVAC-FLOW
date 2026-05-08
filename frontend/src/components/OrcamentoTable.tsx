@@ -11,8 +11,8 @@ export function OrcamentoTable({
   onSelecionarOrcamento,
 }: OrcamentoTableProps) {
   return (
-    <div className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white">
-      <table className="w-full border-collapse text-left text-sm">
+    <div className="overflow-x-auto rounded-lg border border-slate-200">
+      <table className="min-w-[1100px] w-full table-fixed border-collapse text-left text-sm">
         <thead className="bg-slate-50 text-slate-500">
           <tr>
             <th className="px-4 py-3 font-medium">Nº Diretor Plus</th>
