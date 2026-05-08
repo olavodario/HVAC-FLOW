@@ -97,8 +97,8 @@ interface TabelaItensTecnicosProps {
 
 function TabelaItensTecnicos({ itens, orcamento }: TabelaItensTecnicosProps) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200">
-      <table className="w-full table-fixed border-collapse text-left text-sm">
+    <div className="overflow-x-auto rounded-lg border border-slate-200">
+      <table className="min-w-[1200px] w-full table-fixed border-collapse text-left text-sm">
         <thead className="bg-slate-50 text-slate-500">
           <tr>
             <th className="w-[90px] px-3 py-2 font-medium">Tag</th>
@@ -182,8 +182,8 @@ interface TabelaIndiretosProps {
 
 function TabelaIndiretos({ itens, orcamento }: TabelaIndiretosProps) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200">
-      <table className="w-full table-fixed border-collapse text-left text-sm">
+    <div className="overflow-x-auto rounded-lg border border-slate-200">
+      <table className="min-w-[760px] w-full table-fixed border-collapse text-left text-sm">
         <thead className="bg-slate-50 text-slate-500">
           <tr>
             <th className="w-[520px] px-3 py-2 font-medium">Descrição</th>

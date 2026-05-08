@@ -72,7 +72,7 @@ export function VentilacaoEquipamentosPage({
                 {tipo.nome}
               </h4>
             </div>
-
+            <div className="overflow-x-auto">
             <table className="min-w-[1100px] w-full table-fixed border-collapse text-left text-sm">
               <thead className="bg-white text-slate-500">
                 <tr>
@@ -138,6 +138,7 @@ export function VentilacaoEquipamentosPage({
                 )}
               </tbody>
             </table>
+            </div>
           </div>
         ))}
       </div>
