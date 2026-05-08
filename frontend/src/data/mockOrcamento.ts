@@ -23,81 +23,63 @@ export const mockOrcamentos: Orcamento[] = [
 
     macrogrupos: [
       {
-        id: "mg-1",
-        tipo: "CLIMATIZACAO",
-        nome: "Climatização",
-        categorias: [
-          {
-            id: "cat-1",
-            nome: "Equipamentos",
-            itens: [
-              {
-                id: "item-1",
-                tag: "FC-01",
-                descricao: "FANCOIL 10TR",
-                fabricante: "Daikin",
-                quantidade: 2,
-                unidade: "un",
-                tipoMaterial: "equipamento",
-                valorMaterialUnitario: 15000,
-                valorMaoObraUnitario: 1500,
-                valorIndiretoUnitario: 300,
-              },
-            ],
-          },
-          {
-            id: "cat-2",
-            nome: "Difusão de Ar",
-            itens: [
-              {
-                id: "item-2",
-                tag: "DI-01",
-                descricao: 'DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12" DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"',
-                fabricante: "TROX ou similar",
-                quantidade: 15,
-                unidade: "pc",
-                tipoMaterial: "material",
-                valorMaterialUnitario: 250,
-                valorMaoObraUnitario: 15,
-                valorIndiretoUnitario: 5,
-              },
-              {
-                id: "item-3",
-                tag: "GE-35",
-                descricao: "GRELHA DE EXAUSTÃO 500x500mm",
-                fabricante: "TROX ou similar",
-                quantidade: 15,
-                unidade: "pc",
-                tipoMaterial: "material",
-                valorMaterialUnitario: 850,
-                valorMaoObraUnitario: 350,
-                valorIndiretoUnitario: 30,
-              },
-            ],
-          },
-        ],
-      },
-
-      {
-        id: "mg-2",
+        id: "mg-ventilacao",
         tipo: "VENTILACAO",
         nome: "Ventilação",
-        categorias: [
+        secoes: [
           {
-            id: "cat-3",
-            nome: "Dutos",
-            itens: [
+            id: "sec-vent-equip",
+            tipo: "EQUIPAMENTOS",
+            nome: "Equipamentos",
+            tipos: [
               {
-                id: "item-4",
-                tag: "DUT-01",
-                descricao: "DUTO EM CHAPA GALVANIZADA",
-                fabricante: "Fabricação 3D",
-                quantidade: 120,
-                unidade: "m2",
-                tipoMaterial: "material",
-                valorMaterialUnitario: 180,
-                valorMaoObraUnitario: 90,
-                valorIndiretoUnitario: 20,
+                id: "tipo-exaustor",
+                nome: "Exaustores",
+                itens: [
+                  {
+                    id: "item-ex-01",
+                    tag: "EX-01",
+                    descricao:
+                      "EXAUSTOR CENTRÍFUGO EM GABINETE, ROTOR SIROCCO, ACIONAMENTO POR POLIA E CORREIA",
+                    fabricante: "Soler & Palau ou similar equivalente",
+                    quantidade: 1,
+                    unidade: "un",
+                    tipoFaturamento: "direto",
+                    valorMaterialUnitario: 8500,
+                    valorMaoObraUnitario: 1200,
+                    valorIndiretoUnitario: 250,
+                  },
+                ],
+              },
+              {
+                id: "tipo-ventilador",
+                nome: "Ventiladores",
+                itens: [],
+              },
+            ],
+          },
+          {
+            id: "sec-vent-mat",
+            tipo: "MATERIAIS",
+            nome: "Materiais",
+            tipos: [
+              {
+                id: "tipo-dutos",
+                nome: "Dutos",
+                itens: [
+                  {
+                    id: "item-dut-01",
+                    tag: "DUT-01",
+                    descricao: "DUTO EM CHAPA GALVANIZADA",
+                    fabricante: "Fabricação 3D",
+                    quantidade: 120,
+                    unidade: "m2",
+                    tipoFaturamento: "fornecimento_3d",
+                    valorMaterialUnitario: 180,
+                    valorMaoObraUnitario: 90,
+                    valorIndiretoUnitario: 20,
+                  },
+                ],
               },
             ],
           },
@@ -105,25 +87,103 @@ export const mockOrcamentos: Orcamento[] = [
       },
 
       {
-        id: "mg-3",
+        id: "mg-climatizacao",
+        tipo: "CLIMATIZACAO",
+        nome: "Climatização",
+        secoes: [
+          {
+            id: "sec-clima-equip",
+            tipo: "EQUIPAMENTOS",
+            nome: "Equipamentos",
+            tipos: [
+              {
+                id: "tipo-fancoil",
+                nome: "Fancoils",
+                itens: [
+                  {
+                    id: "item-fc-01",
+                    tag: "FC-01",
+                    descricao: "FANCOIL 10TR",
+                    fabricante: "Daikin ou similar equivalente",
+                    quantidade: 2,
+                    unidade: "un",
+                    tipoFaturamento: "direto",
+                    valorMaterialUnitario: 15000,
+                    valorMaoObraUnitario: 1500,
+                    valorIndiretoUnitario: 300,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "sec-clima-mat",
+            tipo: "MATERIAIS",
+            nome: "Materiais",
+            tipos: [
+              {
+                id: "tipo-difusao",
+                nome: "Difusão de Ar",
+                itens: [
+                  {
+                    id: "item-di-01",
+                    tag: "DI-01",
+                    descricao:
+                      'DIFUSOR DE INSUFLAMENTO DUPLA DEFLEXÃO 12"x12"',
+                    fabricante: "TROX ou similar equivalente",
+                    quantidade: 15,
+                    unidade: "pc",
+                    tipoFaturamento: "fornecimento_3d",
+                    valorMaterialUnitario: 250,
+                    valorMaoObraUnitario: 15,
+                    valorIndiretoUnitario: 5,
+                  },
+                  {
+                    id: "item-ge-35",
+                    tag: "GE-35",
+                    descricao: "GRELHA DE EXAUSTÃO 500x500mm",
+                    fabricante: "TROX ou similar equivalente",
+                    quantidade: 15,
+                    unidade: "pc",
+                    tipoFaturamento: "fornecimento_3d",
+                    valorMaterialUnitario: 850,
+                    valorMaoObraUnitario: 350,
+                    valorIndiretoUnitario: 30,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        id: "mg-indiretos",
         tipo: "INDIRETOS",
         nome: "Indiretos",
-        categorias: [
+        secoes: [
           {
-            id: "cat-4",
-            nome: "Custos Indiretos",
-            itens: [
+            id: "sec-indiretos",
+            tipo: "INDIRETOS",
+            nome: "Indiretos",
+            tipos: [
               {
-                id: "item-5",
-                tag: "IND-01",
-                descricao: "MOBILIZAÇÃO DE EQUIPE",
-                fabricante: "3D Ar Condicionado",
-                quantidade: 1,
-                unidade: "vb",
-                tipoMaterial: "material",
-                valorMaterialUnitario: 0,
-                valorMaoObraUnitario: 0,
-                valorIndiretoUnitario: 3500,
+                id: "tipo-custos-indiretos",
+                nome: "Custos Indiretos",
+                itens: [
+                  {
+                    id: "item-ind-01",
+                    tag: "IND-01",
+                    descricao: "MOBILIZAÇÃO DE EQUIPE",
+                    fabricante: "3D Ar Condicionado",
+                    quantidade: 1,
+                    unidade: "vb",
+                    tipoFaturamento: "fornecimento_3d",
+                    valorMaterialUnitario: 0,
+                    valorMaoObraUnitario: 0,
+                    valorIndiretoUnitario: 3500,
+                  },
+                ],
               },
             ],
           },

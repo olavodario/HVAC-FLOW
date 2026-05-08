@@ -11,7 +11,7 @@ export function calcularTotalMaterial(
   const custoBase = item.quantidade * item.valorMaterialUnitario;
 
   const bdi =
-    item.tipoMaterial === "equipamento"
+    item.tipoFaturamento === "direto"
       ? formacaoPreco.bdiEquipamento
       : formacaoPreco.bdiMaterial;
 
@@ -23,7 +23,6 @@ export function calcularTotalMaoObra(
   formacaoPreco: FormacaoPreco
 ): number {
   const custoBase = item.quantidade * item.valorMaoObraUnitario;
-
   return custoBase * (1 + formacaoPreco.bdiMaoObra / 100);
 }
 
@@ -32,7 +31,6 @@ export function calcularTotalIndiretos(
   formacaoPreco: FormacaoPreco
 ): number {
   const custoBase = item.quantidade * item.valorIndiretoUnitario;
-
   return custoBase * (1 + formacaoPreco.bdiIndiretos / 100);
 }
 
@@ -53,22 +51,16 @@ export function calcularResumoOrcamento(orcamento: Orcamento) {
   let totalIndiretos = 0;
 
   orcamento.macrogrupos.forEach((macrogrupo) => {
-    macrogrupo.categorias.forEach((categoria) => {
-      categoria.itens.forEach((item) => {
-        totalMaterial += calcularTotalMaterial(
-          item,
-          orcamento.formacaoPreco
-        );
-
-        totalMaoObra += calcularTotalMaoObra(
-          item,
-          orcamento.formacaoPreco
-        );
-
-        totalIndiretos += calcularTotalIndiretos(
-          item,
-          orcamento.formacaoPreco
-        );
+    macrogrupo.secoes.forEach((secao) => {
+      secao.tipos.forEach((tipo) => {
+        tipo.itens.forEach((item) => {
+          totalMaterial += calcularTotalMaterial(item, orcamento.formacaoPreco);
+          totalMaoObra += calcularTotalMaoObra(item, orcamento.formacaoPreco);
+          totalIndiretos += calcularTotalIndiretos(
+            item,
+            orcamento.formacaoPreco
+          );
+        });
       });
     });
   });
@@ -77,10 +69,7 @@ export function calcularResumoOrcamento(orcamento: Orcamento) {
     totalMaterial,
     totalMaoObra,
     totalIndiretos,
-    totalGeral:
-      totalMaterial +
-      totalMaoObra +
-      totalIndiretos,
+    totalGeral: totalMaterial + totalMaoObra + totalIndiretos,
   };
 }
 

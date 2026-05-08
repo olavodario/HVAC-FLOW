@@ -2,7 +2,9 @@ export type RevisaoOrcamento = `R${string}`;
 
 export type Macrogrupo = "VENTILACAO" | "CLIMATIZACAO" | "INDIRETOS";
 
-export type TipoMaterial = "material" | "equipamento";
+export type SecaoOrcamento = "EQUIPAMENTOS" | "MATERIAIS" | "INDIRETOS";
+
+export type TipoFaturamento = "direto" | "fornecimento_3d";
 
 export type Unidade =
   | "un"
@@ -43,10 +45,17 @@ export interface MacrogrupoOrcamento {
   id: string;
   tipo: Macrogrupo;
   nome: string;
-  categorias: CategoriaOrcamento[];
+  secoes: SecaoOrcamentoItem[];
 }
 
-export interface CategoriaOrcamento {
+export interface SecaoOrcamentoItem {
+  id: string;
+  tipo: SecaoOrcamento;
+  nome: string;
+  tipos: TipoItemOrcamento[];
+}
+
+export interface TipoItemOrcamento {
   id: string;
   nome: string;
   itens: ItemOrcamento[];
@@ -62,7 +71,7 @@ export interface ItemOrcamento {
   quantidade: number;
   unidade: Unidade;
 
-  tipoMaterial: TipoMaterial;
+  tipoFaturamento: TipoFaturamento;
 
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
