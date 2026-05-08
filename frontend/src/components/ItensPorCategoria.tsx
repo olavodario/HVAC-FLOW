@@ -42,16 +42,16 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
                         <th className="w-[70px] px-3 py-2 font-medium">Qtd</th>
                         <th className="w-[70px] px-3 py-2 font-medium">Un.</th>
                         <th className="w-[140px] px-3 py-2 font-medium">Material</th>
-                        <th className="px-3 py-2 font-medium">M.O.</th>
-                        <th className="px-3 py-2 font-medium">Indiretos</th>
-                        <th className="px-3 py-2 font-medium">Total</th>
+                        <th className="w-[140px] px-3 py-2 font-medium">M.O.</th>
+                        <th className="w-[140px] px-3 py-2 font-medium">Indiretos</th>
+                        <th className="w-[140px] px-3 py-2 font-medium">Total</th>
                       </tr>
                     </thead>
 
                     <tbody className="divide-y divide-slate-100">
                       {categoria.itens.map((item) => (
                         <tr key={item.id} className="hover:bg-slate-50">
-                          <td className="px-3 py-3 font-medium text-slate-900">
+                          <td className="px-3 py-3 align-top font-medium text-slate-900">
                             {item.tag}
                           </td>
 
@@ -59,19 +59,19 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
                             {item.descricao}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {item.fabricante}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {item.quantidade}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {item.unidade}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {formatarMoeda(
                               calcularTotalMaterial(
                                 item,
@@ -80,7 +80,7 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
                             )}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {formatarMoeda(
                               calcularTotalMaoObra(
                                 item,
@@ -89,7 +89,7 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
                             )}
                           </td>
 
-                          <td className="px-3 py-3 text-slate-700">
+                          <td className="px-3 py-3 align-top text-slate-700">
                             {formatarMoeda(
                               calcularTotalIndiretos(
                                 item,
@@ -98,7 +98,7 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
                             )}
                           </td>
 
-                          <td className="px-3 py-3 font-semibold text-slate-900">
+                          <td className="px-3 py-3 align-top text-right text-slate-700">
                             {formatarMoeda(
                               calcularTotalItem(
                                 item,
