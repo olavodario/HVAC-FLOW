@@ -31,6 +31,23 @@ interface OrcamentoStore {
     tipoId: string,
     novoItem: NovoItemOrcamento
   ) => void;
+
+  editarItemOrcamento: (
+    orcamentoId: string,
+    macrogrupoTipo: string,
+    secaoTipo: string,
+    tipoId: string,
+    itemId: string,
+    itemAtualizado: Partial<NovoItemOrcamento>
+  ) => void;
+
+  excluirItemOrcamento: (
+    orcamentoId: string,
+    macrogrupoTipo: string,
+    secaoTipo: string,
+    tipoId: string,
+    itemId: string
+  ) => void;
 }
 
 export const useOrcamentoStore =
@@ -156,4 +173,106 @@ export const useOrcamentoStore =
             }
           ),
       })),
+
+      editarItemOrcamento: (
+    orcamentoId,
+    macrogrupoTipo,
+    secaoTipo,
+    tipoId,
+    itemId,
+    itemAtualizado
+  ) =>
+    set((state) => ({
+      orcamentos: state.orcamentos.map((orcamento) => {
+        if (orcamento.id !== orcamentoId) {
+          return orcamento;
+        }
+
+        return {
+          ...orcamento,
+          macrogrupos: orcamento.macrogrupos.map((macrogrupo) => {
+            if (macrogrupo.tipo !== macrogrupoTipo) {
+              return macrogrupo;
+            }
+
+            return {
+              ...macrogrupo,
+              secoes: macrogrupo.secoes.map((secao) => {
+                if (secao.tipo !== secaoTipo) {
+                  return secao;
+                }
+
+                return {
+                  ...secao,
+                  tipos: secao.tipos.map((tipo) => {
+                    if (tipo.id !== tipoId) {
+                      return tipo;
+                    }
+
+                    return {
+                      ...tipo,
+                      itens: tipo.itens.map((item) =>
+                        item.id === itemId
+                          ? {
+                              ...item,
+                              ...itemAtualizado,
+                            }
+                          : item
+                      ),
+                    };
+                  }),
+                };
+              }),
+            };
+          }),
+        };
+      }),
+    })),
+
+  excluirItemOrcamento: (
+    orcamentoId,
+    macrogrupoTipo,
+    secaoTipo,
+    tipoId,
+    itemId
+  ) =>
+    set((state) => ({
+      orcamentos: state.orcamentos.map((orcamento) => {
+        if (orcamento.id !== orcamentoId) {
+          return orcamento;
+        }
+
+        return {
+          ...orcamento,
+          macrogrupos: orcamento.macrogrupos.map((macrogrupo) => {
+            if (macrogrupo.tipo !== macrogrupoTipo) {
+              return macrogrupo;
+            }
+
+            return {
+              ...macrogrupo,
+              secoes: macrogrupo.secoes.map((secao) => {
+                if (secao.tipo !== secaoTipo) {
+                  return secao;
+                }
+
+                return {
+                  ...secao,
+                  tipos: secao.tipos.map((tipo) => {
+                    if (tipo.id !== tipoId) {
+                      return tipo;
+                    }
+
+                    return {
+                      ...tipo,
+                      itens: tipo.itens.filter((item) => item.id !== itemId),
+                    };
+                  }),
+                };
+              }),
+            };
+          }),
+        };
+      }),
+    })),
   }));
