@@ -31,6 +31,12 @@ export function VentilacaoEquipamentosPage({
 }: VentilacaoEquipamentosPageProps) {
   const [formAberto, setFormAberto] = useState(false);
 
+  const [itemEditando, setItemEditando] =
+    useState<{
+      tipoId: string;
+      item: any;
+    } | null>(null);
+
   const ventilacao = orcamento.macrogrupos.find(
     (macrogrupo) => macrogrupo.tipo === "VENTILACAO"
   );
@@ -70,11 +76,35 @@ export function VentilacaoEquipamentosPage({
         </button>
       </div>
 
-      {formAberto && (
+      {(formAberto || itemEditando) && (
         <EquipamentoForm
+          itemEdicao={itemEditando?.item}
+          tipoIdEdicao={itemEditando?.tipoId}
           tagsExistentes={tagsExistentes}
-          onFechar={() => setFormAberto(false)}
-          onSalvar={onAdicionarEquipamento}
+          onFechar={() => {
+            setFormAberto(false);
+            setItemEditando(null);
+          }}
+          onSalvar={(tipoId, item) => {
+            if (itemEditando) {
+              onEditarEquipamento(
+                tipoId,
+                itemEditando.item.id,
+                item
+              );
+
+              setItemEditando(null);
+
+              return;
+            }
+
+            onAdicionarEquipamento(
+              tipoId,
+              item
+            );
+
+            setFormAberto(false);
+          }}
         />
       )}
 
@@ -98,6 +128,7 @@ export function VentilacaoEquipamentosPage({
                   <th className="px-4 py-3 font-medium">Un.</th>
                   <th className="px-4 py-3 font-medium">Preço Equip.</th>
                   <th className="px-4 py-3 font-medium">M.O.</th>
+                  <th className="px-4 py-3 font-medium">Ações</th>
                 </tr>
               </thead>
 
@@ -137,13 +168,47 @@ export function VentilacaoEquipamentosPage({
                     <td className="px-4 py-3 text-slate-700">
                       {formatarMoeda(item.valorMaoObraUnitario)}
                     </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() =>
+                            setItemEditando({
+                              tipoId: tipo.id,
+                              item,
+                            })
+                          }
+                          className="rounded-md bg-blue-600 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700"
+                        >
+                          Editar
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            const confirmar =
+                              window.confirm(
+                                `Deseja excluir a TAG ${item.tag}?`
+                              );
+
+                            if (confirmar) {
+                              onExcluirEquipamento(
+                                tipo.id,
+                                item.id
+                              );
+                            }
+                          }}
+                          className="rounded-md bg-red-600 px-3 py-1 text-xs font-semibold text-white hover:bg-red-700"
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
 
                 {tipo.itens.length === 0 && (
                   <tr>
                     <td
-                      colSpan={8}
+                      colSpan={9}
                       className="px-4 py-5 text-center text-sm text-slate-400"
                     >
                       Nenhum equipamento cadastrado neste tipo.
