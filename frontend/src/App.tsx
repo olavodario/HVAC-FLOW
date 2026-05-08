@@ -3,11 +3,12 @@ import { AppLayout } from "./layouts/AppLayout";
 import { mockOrcamentos } from "./data/mockOrcamento";
 import { OrcamentosPage } from "./pages/OrcamentosPage";
 import { OrcamentoDetalhePage } from "./pages/OrcamentoDetalhePage";
-import type { FormacaoPreco, Orcamento } from "./types/orcamento";
+import type { FormacaoPreco, Orcamento, NovoItemOrcamento } from "./types/orcamento";
 import type {
   SecaoOrcamentoPagina,
   SecaoSistema,
 } from "./types/navegacao";
+
 
 function App() {
   const [orcamentos, setOrcamentos] = useState<Orcamento[]>(mockOrcamentos);
@@ -52,6 +53,60 @@ function App() {
     );
   }
 
+  function adicionarItemOrcamento(
+    orcamentoId: string,
+    macrogrupoTipo: string,
+    secaoTipo: string,
+    tipoId: string,
+    novoItem: NovoItemOrcamento
+  ) {
+    setOrcamentos((orcamentosAtuais) =>
+      orcamentosAtuais.map((orcamento) => {
+        if (orcamento.id !== orcamentoId) {
+          return orcamento;
+        }
+
+        return {
+          ...orcamento,
+          macrogrupos: orcamento.macrogrupos.map((macrogrupo) => {
+            if (macrogrupo.tipo !== macrogrupoTipo) {
+              return macrogrupo;
+            }
+
+            return {
+              ...macrogrupo,
+              secoes: macrogrupo.secoes.map((secao) => {
+                if (secao.tipo !== secaoTipo) {
+                  return secao;
+                }
+
+                return {
+                  ...secao,
+                  tipos: secao.tipos.map((tipo) => {
+                    if (tipo.id !== tipoId) {
+                      return tipo;
+                    }
+
+                    return {
+                      ...tipo,
+                      itens: [
+                        ...tipo.itens,
+                        {
+                          id: crypto.randomUUID(),
+                          ...novoItem,
+                        },
+                      ],
+                    };
+                  }),
+                };
+              }),
+            };
+          }),
+        };
+      })
+    );
+  }
+
   return (
     <AppLayout
       orcamentoAberto={orcamentoSelecionado !== null}
@@ -66,7 +121,19 @@ function App() {
           secaoAtiva={secaoOrcamentoAtiva}
           onVoltar={voltarParaOrcamentos}
           onAtualizarFormacaoPreco={(novaFormacaoPreco) =>
-            atualizarFormacaoPreco(orcamentoSelecionado.id, novaFormacaoPreco)
+            atualizarFormacaoPreco(
+              orcamentoSelecionado.id,
+              novaFormacaoPreco
+            )
+          }
+          onAdicionarEquipamento={(tipoId, item) =>
+            adicionarItemOrcamento(
+              orcamentoSelecionado.id,
+              "VENTILACAO",
+              "EQUIPAMENTOS",
+              tipoId,
+              item
+            )
           }
         />
       ) : (

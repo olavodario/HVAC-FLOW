@@ -1,14 +1,19 @@
-import type { FormacaoPreco, Orcamento } from "../types/orcamento";
+import type { FormacaoPreco } from "../types/orcamento";
 import type { SecaoOrcamentoPagina } from "../types/navegacao";
 import { ResumoCustos } from "../components/ResumoCustos";
 import { ItensPorCategoria } from "../components/ItensPorCategoria";
 import { VentilacaoEquipamentosPage } from "./VentilacaoEquipamentosPage";
+import type { NovoItemOrcamento, Orcamento } from "../types/orcamento";
 
 interface OrcamentoDetalhePageProps {
   orcamento: Orcamento;
   secaoAtiva: SecaoOrcamentoPagina;
   onVoltar: () => void;
   onAtualizarFormacaoPreco: (formacaoPreco: FormacaoPreco) => void;
+  onAdicionarEquipamento: (
+    tipoId: string,
+    item: NovoItemOrcamento
+  ) => void;
 }
 
 export function OrcamentoDetalhePage({
@@ -16,6 +21,7 @@ export function OrcamentoDetalhePage({
   secaoAtiva,
   onVoltar,
   onAtualizarFormacaoPreco,
+  onAdicionarEquipamento,
 }: OrcamentoDetalhePageProps) {
   return (
     <>
@@ -55,7 +61,10 @@ export function OrcamentoDetalhePage({
       )}
 
       {secaoAtiva === "ventilacao-equipamentos" && (
-        <VentilacaoEquipamentosPage orcamento={orcamento} />
+        <VentilacaoEquipamentosPage
+        orcamento={orcamento}
+        onAdicionarEquipamento={onAdicionarEquipamento}
+      />
       )}
       {secaoAtiva === "ventilacao-materiais" && (
         <PaginaSecao

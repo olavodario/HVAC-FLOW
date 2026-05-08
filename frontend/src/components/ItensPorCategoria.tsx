@@ -111,6 +111,8 @@ export function ItensPorCategoria({ orcamento }: ItensPorCategoriaProps) {
 
                                     <td className="px-3 py-3 align-top text-slate-700">
                                       {item.fabricante}
+                                      {item.modelo && ` - ${item.modelo}`}
+                                      {item.usarSimilarEquivalente && " ou similar equivalente"}
                                     </td>
 
                                     <td className="px-3 py-3 align-top text-slate-700">

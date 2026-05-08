@@ -67,12 +67,28 @@ export interface ItemOrcamento {
   tag: string;
   descricao: string;
   fabricante: string;
+  modelo: string;
+  usarSimilarEquivalente: boolean;
 
   quantidade: number;
   unidade: Unidade;
 
   tipoFaturamento: TipoFaturamento;
 
+  valorMaterialUnitario: number;
+  valorMaoObraUnitario: number;
+  valorIndiretoUnitario: number;
+}
+
+export interface NovoItemOrcamento {
+  tag: string;
+  descricao: string;
+  fabricante: string;
+  modelo: string;
+  usarSimilarEquivalente: boolean;
+  quantidade: number;
+  unidade: Unidade;
+  tipoFaturamento: TipoFaturamento;
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
   valorIndiretoUnitario: number;
