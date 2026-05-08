@@ -26,6 +26,8 @@ function App() {
     voltarParaOrcamentos,
     atualizarFormacaoPreco,
     adicionarItemOrcamento,
+    editarItemOrcamento,
+    excluirItemOrcamento,
   } = useOrcamentoStore();
 
   const orcamentoSelecionado =
@@ -55,33 +57,41 @@ function App() {
     >
       {orcamentoSelecionado ? (
         <OrcamentoDetalhePage
-          orcamento={
-            orcamentoSelecionado
-          }
-          secaoAtiva={
-            secaoOrcamentoAtiva
-          }
-          onVoltar={
-            voltarParaOrcamentos
-          }
-          onAtualizarFormacaoPreco={(
-            novaFormacaoPreco
-          ) =>
+          orcamento={orcamentoSelecionado}
+          secaoAtiva={secaoOrcamentoAtiva}
+          onVoltar={voltarParaOrcamentos}
+          onAtualizarFormacaoPreco={(novaFormacaoPreco) =>
             atualizarFormacaoPreco(
               orcamentoSelecionado.id,
               novaFormacaoPreco
             )
           }
-          onAdicionarEquipamento={(
-            tipoId,
-            item
-          ) =>
+          onAdicionarEquipamento={(tipoId, item) =>
             adicionarItemOrcamento(
               orcamentoSelecionado.id,
               "VENTILACAO",
               "EQUIPAMENTOS",
               tipoId,
               item
+            )
+          }
+          onEditarEquipamento={(tipoId, itemId, item) =>
+            editarItemOrcamento(
+              orcamentoSelecionado.id,
+              "VENTILACAO",
+              "EQUIPAMENTOS",
+              tipoId,
+              itemId,
+              item
+            )
+          }
+          onExcluirEquipamento={(tipoId, itemId) =>
+            excluirItemOrcamento(
+              orcamentoSelecionado.id,
+              "VENTILACAO",
+              "EQUIPAMENTOS",
+              tipoId,
+              itemId
             )
           }
         />

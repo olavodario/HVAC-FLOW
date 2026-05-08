@@ -14,6 +14,16 @@ interface OrcamentoDetalhePageProps {
     tipoId: string,
     item: NovoItemOrcamento
   ) => void;
+    onEditarEquipamento: (
+    tipoId: string,
+    itemId: string,
+    item: NovoItemOrcamento
+  ) => void;
+
+  onExcluirEquipamento: (
+    tipoId: string,
+    itemId: string
+  ) => void;
 }
 
 export function OrcamentoDetalhePage({
@@ -22,6 +32,8 @@ export function OrcamentoDetalhePage({
   onVoltar,
   onAtualizarFormacaoPreco,
   onAdicionarEquipamento,
+  onEditarEquipamento,
+  onExcluirEquipamento,
 }: OrcamentoDetalhePageProps) {
   return (
     <>
@@ -62,9 +74,11 @@ export function OrcamentoDetalhePage({
 
       {secaoAtiva === "ventilacao-equipamentos" && (
         <VentilacaoEquipamentosPage
-        orcamento={orcamento}
-        onAdicionarEquipamento={onAdicionarEquipamento}
-      />
+          orcamento={orcamento}
+          onAdicionarEquipamento={onAdicionarEquipamento}
+          onEditarEquipamento={onEditarEquipamento}
+          onExcluirEquipamento={onExcluirEquipamento}
+        />
       )}
       {secaoAtiva === "ventilacao-materiais" && (
         <PaginaSecao

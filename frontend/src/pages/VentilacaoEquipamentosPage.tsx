@@ -5,15 +5,29 @@ import { formatarMoeda } from "../utils/calculosOrcamento";
 
 interface VentilacaoEquipamentosPageProps {
   orcamento: Orcamento;
+
   onAdicionarEquipamento: (
     tipoId: string,
     item: NovoItemOrcamento
+  ) => void;
+
+  onEditarEquipamento: (
+    tipoId: string,
+    itemId: string,
+    item: NovoItemOrcamento
+  ) => void;
+
+  onExcluirEquipamento: (
+    tipoId: string,
+    itemId: string
   ) => void;
 }
 
 export function VentilacaoEquipamentosPage({
   orcamento,
   onAdicionarEquipamento,
+  onEditarEquipamento,
+  onExcluirEquipamento,
 }: VentilacaoEquipamentosPageProps) {
   const [formAberto, setFormAberto] = useState(false);
 
