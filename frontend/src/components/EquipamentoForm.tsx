@@ -5,6 +5,10 @@ import { catalogoTecnico } from "../data/catalogoTecnico";
 interface EquipamentoFormProps {
   tagsExistentes: string[];
 
+  itemEdicao?: any;
+
+  tipoIdEdicao?: string;
+
   onFechar: () => void;
 
   onSalvar: (
@@ -13,19 +17,64 @@ interface EquipamentoFormProps {
   ) => void;
 }
 
-export function EquipamentoForm({ tagsExistentes, onFechar, onSalvar }: EquipamentoFormProps) {
-  const [tipoId, setTipoId] = useState("tipo-exaustor");
-  const [tag, setTag] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [fabricante, setFabricante] = useState("");
-  const [quantidade, setQuantidade] = useState(1);
-  const [unidade, setUnidade] = useState<Unidade>("un");
-  const [tipoFaturamento, setTipoFaturamento] =
-    useState<TipoFaturamento>("direto");
-  const [valorMaterialUnitario, setValorMaterialUnitario] = useState(0);
-  const [valorMaoObraUnitario, setValorMaoObraUnitario] = useState(0);
-  const [modelo, setModelo] = useState("");
-  const [usarSimilarEquivalente, setUsarSimilarEquivalente] = useState(true);
+export function EquipamentoForm({ tagsExistentes, itemEdicao, tipoIdEdicao, onFechar, onSalvar }: EquipamentoFormProps) {
+  const [tipoId, setTipoId] =
+  useState(
+    tipoIdEdicao ??
+      "tipo-exaustor"
+  );
+  const [tag, setTag] = useState(
+  itemEdicao?.tag ?? ""
+);
+  const [descricao, setDescricao] =
+  useState(
+    itemEdicao?.descricao ?? ""
+  );
+  const [fabricante, setFabricante] =
+  useState(
+    itemEdicao?.fabricante ?? ""
+  );
+  const [quantidade, setQuantidade] =
+  useState(
+    itemEdicao?.quantidade ?? 1
+  );
+  const [unidade, setUnidade] =
+  useState(
+    itemEdicao?.unidade ?? "un"
+  );
+  const [
+  tipoFaturamento,
+  setTipoFaturamento,
+] = useState(
+  itemEdicao?.tipoFaturamento ??
+    "direto"
+);
+  const [
+  valorMaterialUnitario,
+  setValorMaterialUnitario,
+] = useState(
+  itemEdicao?.valorMaterialUnitario ??
+    0
+);
+
+const [
+  valorMaoObraUnitario,
+  setValorMaoObraUnitario,
+] = useState(
+  itemEdicao?.valorMaoObraUnitario ??
+    0
+);
+  const [modelo, setModelo] =
+  useState(
+    itemEdicao?.modelo ?? ""
+  );
+  const [
+  usarSimilarEquivalente,
+  setUsarSimilarEquivalente,
+] = useState(
+  itemEdicao?.usarSimilarEquivalente ??
+    true
+);
   const [tipoVentilador, setTipoVentilador] = useState("");
   const [tipoRotor, setTipoRotor] = useState("");
   const [quantidadeAspiracao, setQuantidadeAspiracao] = useState("");
