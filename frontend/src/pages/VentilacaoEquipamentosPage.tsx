@@ -1,8 +1,7 @@
-//import type { Orcamento } from "../types/orcamento";
-import { formatarMoeda } from "../utils/calculosOrcamento";
 import { useState } from "react";
 import { EquipamentoForm } from "../components/EquipamentoForm";
 import type { NovoItemOrcamento, Orcamento } from "../types/orcamento";
+import { formatarMoeda } from "../utils/calculosOrcamento";
 
 interface VentilacaoEquipamentosPageProps {
   orcamento: Orcamento;
@@ -11,11 +10,13 @@ interface VentilacaoEquipamentosPageProps {
     item: NovoItemOrcamento
   ) => void;
 }
+
 export function VentilacaoEquipamentosPage({
-  
   orcamento,
   onAdicionarEquipamento,
 }: VentilacaoEquipamentosPageProps) {
+  const [formAberto, setFormAberto] = useState(false);
+
   const ventilacao = orcamento.macrogrupos.find(
     (macrogrupo) => macrogrupo.tipo === "VENTILACAO"
   );
@@ -23,8 +24,6 @@ export function VentilacaoEquipamentosPage({
   const equipamentos = ventilacao?.secoes.find(
     (secao) => secao.tipo === "EQUIPAMENTOS"
   );
-
-  const [formAberto, setFormAberto] = useState(false);
 
   return (
     <section className="mt-6 rounded-xl border border-slate-200 bg-white p-6">
@@ -35,7 +34,8 @@ export function VentilacaoEquipamentosPage({
           </h3>
 
           <p className="mt-1 text-sm text-slate-500">
-            Cadastre exaustores, ventiladores e demais equipamentos de ventilação.
+            Cadastre exaustores, ventiladores e demais equipamentos de
+            ventilação.
           </p>
         </div>
 
@@ -47,6 +47,13 @@ export function VentilacaoEquipamentosPage({
         </button>
       </div>
 
+      {formAberto && (
+        <EquipamentoForm
+          onFechar={() => setFormAberto(false)}
+          onSalvar={onAdicionarEquipamento}
+        />
+      )}
+
       <div className="mt-6 space-y-5">
         {equipamentos?.tipos.map((tipo) => (
           <div key={tipo.id} className="rounded-lg border border-slate-200">
@@ -54,12 +61,6 @@ export function VentilacaoEquipamentosPage({
               <h4 className="text-sm font-bold text-slate-700">
                 {tipo.nome}
               </h4>
-              {formAberto && (
-                <EquipamentoForm 
-                  onFechar={() => setFormAberto(false)}
-                  onSalvar={onAdicionarEquipamento}
-                />
-              )}
             </div>
 
             <table className="w-full border-collapse text-left text-sm">
@@ -72,6 +73,7 @@ export function VentilacaoEquipamentosPage({
                   <th className="px-4 py-3 font-medium">Qtd</th>
                   <th className="px-4 py-3 font-medium">Un.</th>
                   <th className="px-4 py-3 font-medium">Preço Equip.</th>
+                  <th className="px-4 py-3 font-medium">M.O.</th>
                 </tr>
               </thead>
 
@@ -88,7 +90,8 @@ export function VentilacaoEquipamentosPage({
 
                     <td className="px-4 py-3 text-slate-700">
                       {item.fabricante}
-                      {item.usarSimilarEquivalente && " ou similar equivalente"}
+                      {item.usarSimilarEquivalente &&
+                        " ou similar equivalente"}
                     </td>
 
                     <td className="px-4 py-3 text-slate-700">
@@ -106,13 +109,17 @@ export function VentilacaoEquipamentosPage({
                     <td className="px-4 py-3 text-slate-700">
                       {formatarMoeda(item.valorMaterialUnitario)}
                     </td>
+
+                    <td className="px-4 py-3 text-slate-700">
+                      {formatarMoeda(item.valorMaoObraUnitario)}
+                    </td>
                   </tr>
                 ))}
 
                 {tipo.itens.length === 0 && (
                   <tr>
                     <td
-                      colSpan={7}
+                      colSpan={8}
                       className="px-4 py-5 text-center text-sm text-slate-400"
                     >
                       Nenhum equipamento cadastrado neste tipo.
