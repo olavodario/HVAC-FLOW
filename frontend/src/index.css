@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+} /* Define estilos básicos para o HTML, corpo e o elemento raiz do React, garantindo que ocupem toda a altura da tela e removendo margens padrão. */
