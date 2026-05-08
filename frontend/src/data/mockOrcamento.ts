@@ -57,6 +57,21 @@ export const mockOrcamentos: Orcamento[] = [
                 nome: "Ventiladores",
                 itens: [],
               },
+              {
+                id: "tipo-exaustor-inline",
+                nome: "Exaustores Inline",
+                itens: [],
+              },
+              {
+                id: "tipo-ventilador-inline",
+                nome: "Ventiladores Inline",
+                itens: [],
+              },
+              {
+                id: "tipo-tomada-ar",
+                nome: "Tomada de Ar",
+                itens: [],
+              },
             ],
           },
           {
