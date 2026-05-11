@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { NovoItemOrcamento, TipoFaturamento, Unidade } from "../types/orcamento";
 import { catalogoTecnico } from "../data/catalogoTecnico";
-
+//TODO: ADICIONAR SEÇÃO DE FILTRAGEM NO CATÁLOGO TÉCNICO PARA VENTILAÇÃO, COM BASE NO TIPO DE EQUIPAMENTO SELECIONADO (EXAUSTOR, VENTILADOR, ETC) E MODELO DE REFERENCIA
+//TODO: NA TENÇÃO COLOCAR COMO SELEÇÃO, TENDO AS OPÇÕES "127V/1F/60Hz", "220V/3F/60Hz", "220V/1F/60Hz", "380V/3F/60Hz", "440/3F/60Hz"
 interface EquipamentoFormProps {
   tagsExistentes: string[];
 
@@ -81,6 +82,8 @@ const [
   const [vazao, setVazao] = useState("");
   const [pressao, setPressao] = useState("");
   const [tensao, setTensao] = useState("");
+  const [grauFiltragem, setGrauFiltragem] = useState("");
+  const [modeloReferencia, setModeloReferencia] = useState("");
   const [acessorios, setAcessorios] = useState("");
   const [erro, setErro] = useState("");
 
@@ -92,7 +95,9 @@ const [
       quantidadeAspiracao && quantidadeAspiracao,
       vazao && `VAZÃO ${vazao} M³/H`,
       pressao && `PRESSÃO ${pressao} MMCA`,
+      grauFiltragem && `FILTRAGEM ${grauFiltragem}`,
       tensao && `TENSÃO ${tensao}`,
+      modeloReferencia && `MODELO DE REFERÊNCIA ${modeloReferencia}`,
       acessorios && `COM ACESSÓRIOS: ${acessorios}`,
     ].filter(Boolean);
 
@@ -257,7 +262,7 @@ const [
             <div className="flex items-center justify-between">
               <div>
                 <h5 className="text-sm font-bold text-slate-900">
-                  Dados técnicos do exaustor
+                  Dados técnicos do equipamento
                 </h5>
 
                 <p className="mt-1 text-xs text-slate-500">
@@ -288,6 +293,26 @@ const [
                 onChange={setQuantidadeAspiracao}
               />
 
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">
+                  Grau de filtragem
+                </span>
+
+                <select
+                  value={grauFiltragem}
+                  onChange={(event) => setGrauFiltragem(event.target.value)}
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500"
+                >
+                  <option value="">Selecione</option>
+
+                  {catalogoTecnico.VENTILACAO.GRAUS_FILTRAGEM.map((grau) => (
+                    <option key={grau.id} value={grau.nome}>
+                      {grau.nome}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
               <Campo
                 label="Vazão"
                 placeholder="3500"
@@ -302,11 +327,31 @@ const [
                 onChange={setPressao}
               />
 
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">
+                  Tensão
+                </span>
+
+                <select
+                  value={tensao}
+                  onChange={(event) => setTensao(event.target.value)}
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500"
+                >
+                  <option value="">Selecione</option>
+
+                  {catalogoTecnico.TENSOES.map((tensaoOpcao) => (
+                    <option key={tensaoOpcao} value={tensaoOpcao}>
+                      {tensaoOpcao}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
               <Campo
-                label="Tensão"
-                placeholder="220V/3F"
-                value={tensao}
-                onChange={setTensao}
+                label="Modelo de referência"
+                placeholder="CVTT, CVAT, GVS..."
+                value={modeloReferencia}
+                onChange={setModeloReferencia}
               />
             </div>
 
