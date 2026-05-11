@@ -1,8 +1,7 @@
 import { useState } from "react";
 import type { NovoItemOrcamento, TipoFaturamento, Unidade } from "../types/orcamento";
 import { catalogoTecnico } from "../data/catalogoTecnico";
-//TODO: ADICIONAR SEÇÃO DE FILTRAGEM NO CATÁLOGO TÉCNICO PARA VENTILAÇÃO, COM BASE NO TIPO DE EQUIPAMENTO SELECIONADO (EXAUSTOR, VENTILADOR, ETC) E MODELO DE REFERENCIA
-//TODO: NA TENÇÃO COLOCAR COMO SELEÇÃO, TENDO AS OPÇÕES "127V/1F/60Hz", "220V/3F/60Hz", "220V/1F/60Hz", "380V/3F/60Hz", "440/3F/60Hz"
+
 interface EquipamentoFormProps {
   tagsExistentes: string[];
 
@@ -113,9 +112,21 @@ const [
       setErro("Informe a TAG do equipamento.");
       return;
     }
-    const tagJaExiste = tagsExistentes.includes(
-      tag.trim().toUpperCase()
-    );
+    // const tagJaExiste = tagsExistentes.includes(
+    //   tag.trim().toUpperCase()
+    // );
+
+    // if (tagJaExiste) {
+    //   setErro("Já existe um item com esta TAG no orçamento.");
+    //   return;
+    // }
+
+    const tagNormalizada = tag.trim().toUpperCase();
+    const tagOriginal = itemEdicao?.tag?.trim().toUpperCase();
+
+    const tagJaExiste =
+      tagNormalizada !== tagOriginal &&
+      tagsExistentes.includes(tagNormalizada);
 
     if (tagJaExiste) {
       setErro("Já existe um item com esta TAG no orçamento.");
