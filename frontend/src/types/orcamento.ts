@@ -78,6 +78,10 @@ export interface ItemOrcamento {
 
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
+  tensao?: string;
+  grauFiltragem?: string;
+  modeloReferencia?: string;
+  acessorios?: string;
 }
 
 export interface ItemIndireto {
@@ -104,4 +108,8 @@ export interface NovoItemOrcamento {
 
   valorMaterialUnitario: number;
   valorMaoObraUnitario: number;
+  tensao?: string;
+  grauFiltragem?: string;
+  modeloReferencia?: string;
+  acessorios?: string;
 }

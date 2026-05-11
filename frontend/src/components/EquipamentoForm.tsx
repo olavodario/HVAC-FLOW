@@ -81,10 +81,14 @@ const [
   const [quantidadeAspiracao, setQuantidadeAspiracao] = useState("");
   const [vazao, setVazao] = useState("");
   const [pressao, setPressao] = useState("");
-  const [tensao, setTensao] = useState("");
-  const [grauFiltragem, setGrauFiltragem] = useState("");
-  const [modeloReferencia, setModeloReferencia] = useState("");
-  const [acessorios, setAcessorios] = useState("");
+  const [tensao, setTensao] = useState(itemEdicao?.tensao ?? "");
+  const [grauFiltragem, setGrauFiltragem] = useState(
+    itemEdicao?.grauFiltragem ?? ""
+  );
+  const [modeloReferencia, setModeloReferencia] = useState(
+    itemEdicao?.modeloReferencia ?? ""
+  );
+  const [acessorios, setAcessorios] = useState(itemEdicao?.acessorios ?? "");
   const [erro, setErro] = useState("");
 
   function gerarDescricaoExaustor() {
@@ -150,6 +154,10 @@ const [
       tipoFaturamento,
       valorMaterialUnitario,
       valorMaoObraUnitario,
+      tensao,
+      grauFiltragem,
+      modeloReferencia,
+      acessorios,
     });
 
 
